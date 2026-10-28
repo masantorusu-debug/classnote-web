@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f8fc">
+<title>ClassNote — 授業翻訳ノート</title>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--ink:#202a3a;--muted:#758198;--line:#e5eaf2;--blue:#4263eb;--blue2:#eef2ff;--green:#178453;--red:#b42318;--shadow:0 8px 30px rgba(28,45,80,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100% - 1160px)/2))}
+.logo{font-weight:800;letter-spacing:-.5px;font-size:20px}.logo b{color:var(--blue)}.topnote{font-size:12px;color:var(--muted)}
+main{max-width:1160px;margin:30px auto;padding:0 20px}.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:22px}.intro h1{font-size:28px;margin:0 0 8px;letter-spacing:-.7px}.intro p{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:21px;margin-bottom:18px;min-width:0}
+h2{font-size:15px;margin:0 0 16px}.small{font-size:12px;color:var(--muted);line-height:1.65}
+button,input,select{font:inherit}button{border:0;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,transform .15s}button:hover{transform:translateY(-1px)}button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.primary{background:var(--blue);color:white}.primary:hover{background:#3451d1}.soft{background:var(--blue2);color:#3451c7}.plain{background:#f0f2f6;color:#445066}.danger{background:#fff0ef;color:var(--red)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}.btnrow button{flex:1}
+.status{display:flex;align-items:center;gap:8px;background:#f6f8fb;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:15px;font-size:12px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:#a0a8b5;flex-shrink:0}.status.live{background:#eaf8f0;color:var(--green);border-color:#d3efdf}.status.live .dot{background:#20a56b;box-shadow:0 0 0 4px #d4f3e2}
+label{display:block;font-size:12px;color:var(--muted);margin:14px 0 6px}input[type=text],select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 11px;background:#fff;color:var(--ink);outline:none}input:focus,select:focus{border-color:#9aaafa}
+.session-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}.session-item{display:flex;gap:8px;align-items:center;width:100%;text-align:left;background:transparent;color:var(--ink);border:1px solid transparent;padding:11px;border-radius:10px}.session-item:hover{background:#f7f8fc}.session-item.selected{background:var(--blue2);border-color:#dfe5ff}.session-item .sname{font-size:13px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.session-item small{display:block;color:var(--muted);font-weight:400;margin-top:4px}
+.workspace{min-width:0}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.toolbar h2{margin:0;font-size:17px}.count{font-size:12px;color:var(--muted)}
+.transcript-list{display:flex;flex-direction:column;gap:12px}.entry{border:1px solid var(--line);border-radius:13px;padding:15px}.entry-top{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted);margin-bottom:10px}.lang{font-size:10px;letter-spacing:.8px;font-weight:800;color:var(--muted);margin:12px 0 6px}.en,.jp{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:14px}.jp{background:#f5f7ff;border-radius:9px;padding:11px 12px}.empty{padding:35px 14px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+.live-text{border:1px dashed #cbd4e5;background:#fafbfe;padding:13px;border-radius:12px;min-height:48px;color:#536078;font-size:13px;line-height:1.7;white-space:pre-wrap}
+.summary{white-space:pre-wrap;line-height:1.9;font-size:14px;overflow-wrap:anywhere}.notice{font-size:11px;color:var(--muted);line-height:1.7;margin-top:12px}.err{color:var(--red);font-size:12px;line-height:1.6;margin-top:10px;white-space:pre-wrap}
+footer{text-align:center;padding:20px 14px 35px;color:#929bad;font-size:11px}
+@media(max-width:800px){header{height:62px}.topnote{display:none}main{margin:22px auto;padding:0 13px}.intro{display:block}.intro h1{font-size:24px}.layout{grid-template-columns:1fr;gap:0}.card{padding:17px;border-radius:15px}.sidebar{display:grid;grid-template-columns:1fr;gap:0}.session-list{max-height:220px;overflow:auto}.toolbar{align-items:flex-start}.toolbar .btnrow{max-width:52%}.toolbar .btnrow button{flex:initial}}
+</style>
+</head>
+<body>
+<header><div class="logo"><b>●</b> ClassNote</div><div class="topnote">LECTURE TRANSCRIPT · TRANSLATION · NOTES</div></header>
+<main>
+  <section class="intro"><div><h1>授業ノート</h1><p>英語を文字起こしし、日本語訳と復習用ノートを作成します。</p></div></section>
+  <div class="layout">
+    <aside class="sidebar">
+      <section class="card">
+        <h2>録音コントロール</h2>
+        <div id="status" class="status"><span class="dot"></span><span>準備中</span></div>
+        <div class="btnrow">
+          <button id="startBtn" class="primary">● 授業開始</button>
+          <button id="stopBtn" class="plain" disabled>■ 停止</button>
+        </div>
+        <div id="liveText" class="live-text" style="margin-top:13px">認識中の英語がここに表示されます。</div>
+        <div id="error" class="err"></div>
+        <p class="notice">マイクの使用を許可してください。音声認識は対応ブラウザの音声認識サービスを利用します。安定した接続が必要です。</p>
+      </section>
+      <section class="card">
+        <h2>授業の管理</h2>
+        <label for="sessionName">授業名</label>
+        <input id="sessionName" type="text" maxlength="100" placeholder="例：Gender and STEM">
+        <div class="btnrow" style="margin-top:9px"><button id="newBtn" class="soft">＋ 新しい授業</button><button id="renameBtn" class="plain">名前を保存</button></div>
+        <div class="session-list" id="sessionList"></div>
+        <p class="notice">記録はこのブラウザ内に保存されます。別の端末やブラウザとは自動同期されません。</p>
+      </section>
+      <section class="card">
+        <h2>エクスポート</h2>
+        <div class="btnrow"><button id="downloadBtn" class="soft">↓ 全文を保存</button><button id="summaryDownloadBtn" class="plain">要約を保存</button></div>
+        <p class="notice">テキスト形式（.txt）でダウンロードできます。</p>
+      </section>
+    </aside>
+    <section class="workspace">
+      <div class="toolbar"><h2>文字起こし・翻訳</h2><span id="entryCount" class="count">0件</span></div>
+      <section class="card"><div id="entries" class="transcript-list"><div class="empty">授業を開始すると、記録がここに表示されます。<br>最初の結果が出るまで少し時間がかかる場合があります。</div></div></section>
+      <div class="toolbar"><h2>授業のまとめ</h2><button id="summaryBtn" class="primary">要約を作成</button></div>
+      <section class="card"><div id="summary" class="summary small">授業の記録をもとに、主な話題と重要語句を整理します。</div><div id="summaryError" class="err"></div></section>
+    </section>
+  </div>
+</main>
+<footer>ClassNote · Free browser-based prototype</footer>
+<script>
+(() => {
+  const STORAGE_KEY = 'classnote.sessions.v1';
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const $ = id => document.getElementById(id);
+  let sessions = loadSessions(), activeId = sessions[0]?.id || null;
+  let recognition = null, recording = false, restartTimer = null, finalBuffer = '', lastSavedText = '';
+  let translateQueue = Promise.resolve();
+
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+  function loadSessions(){
+    try { const x = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); if(Array.isArray(x)&&x.length)return x; } catch(e){}
+    return [{id:uid(),name:'授業 1',createdAt:new Date().toISOString(),entries:[],summary:''}];
+  }
+  function saveAll(){ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(sessions));}catch(e){$('error').textContent='保存容量が不足しています。全文をダウンロードしてから、古い授業を整理してください。';} }
+  function active(){ return sessions.find(s=>s.id===activeId)||sessions[0]; }
+  function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function setStatus(text,live=false){$('status').className='status'+(live?' live':'');$('status').innerHTML='<span class="dot"></span><span>'+safe(text)+'</span>';}
+  function fmt(iso){try{return new Date(iso).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});}catch(e){return '';}}
+
+  function renderSessions(){
+    $('sessionList').innerHTML=sessions.map(s=>`<button class="session-item ${s.id===activeId?'selected':''}" data-id="${safe(s.id)}"><span class="sname">${safe(s.name)}<small>${s.entries.length}件 · ${new Date(s.createdAt).toLocaleDateString()}</small></span></button>`).join('');
+    $('sessionList').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(recording){$('error').textContent='授業を停止してから切り替えてください。';return;}activeId=b.dataset.id;render();});
+  }
+  function renderEntries(){
+    const s=active(), entries=s?.entries||[];
+    $('entryCount').textContent=entries.length+'件';
+    $('entries').innerHTML=entries.length?[...entries].reverse().map(e=>`<article class="entry"><div class="entry-top"><span>${safe(e.time||'')}</span><span>${e.ja?'翻訳済み':'翻訳待ち'}</span></div><div class="lang">ENGLISH</div><div class="en">${safe(e.en)}</div><div class="lang">日本語訳</div><div class="jp">${safe(e.ja||'翻訳中…')}</div></article>`).join(''):'<div class="empty">まだ記録がありません。授業開始を押してください。</div>';
+    $('summary').textContent=s?.summary||'授業の記録をもとに、主な話題と重要語句を整理します。';
+  }
+  function render(){const s=active();if(!s)return;$('sessionName').value=s.name;renderSessions();renderEntries();}
+  function newSession(){if(recording){$('error').textContent='新しい授業を作る前に、録音を停止してください。';return;}const s={id:uid(),name:'授業 '+(sessions.length+1),createdAt:new Date().toISOString(),entries:[],summary:''};sessions.unshift(s);activeId=s.id;saveAll();render();$('sessionName').focus();}
+  function addEntry(en){
+    const s=active(); if(!s)return;
+    const clean=en.trim(); if(!clean||clean===lastSavedText)return;
+    lastSavedText=clean;
+    const entry={id:uid(),time:new Date().toISOString(),en:clean,ja:''};
+    s.entries.push(entry);s.summary='';saveAll();renderEntries();
+    translateQueue=translateQueue.then(()=>translateEntry(s.id,entry.id,clean)).catch(e=>{$('error').textContent='翻訳に失敗しました: '+e.message;});
+  }
+  async function translateEntry(sid,eid,en){
+    // MyMemory free endpoint; it has usage limits and should not be treated as a guaranteed service.
+    const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(en.slice(0,4500))+'&langpair=en|ja';
+    const r=await fetch(url); if(!r.ok)throw new Error('翻訳サービスに接続できません');
+    const d=await r.json();
+    if(d.responseStatus!==200 && !d.responseData?.translatedText)throw new Error(d.responseDetails||'翻訳サービスの制限');
+    const translated=d.responseData?.translatedText;
+    if(!translated)throw new Error('翻訳結果が空です');
+    const s=sessions.find(x=>x.id===sid), e=s?.entries.find(x=>x.id===eid);
+    if(e){e.ja=translated;saveAll();if(activeId===sid)renderEntries();}
+  }
+  function start(){
+    $('error').textContent='';
+    if(!SpeechRecognition){$('error').textContent='このブラウザは音声認識に対応していません。MacではGoogle Chromeの最新版を使ってください。';return;}
+    if(recording)return;
+    try{
+      recognition=new SpeechRecognition();recognition.lang='en-US';recognition.continuous=true;recognition.interimResults=true;recognition.maxAlternatives=1;
+      recognition.onstart=()=>{recording=true;$('startBtn').disabled=true;$('stopBtn').disabled=false;setStatus('録音・文字起こし中',true);};
+      recognition.onresult=e=>{
+        let interim='';
+        for(let i=e.resultIndex;i<e.results.length;i++){
+          const text=e.results[i][0].transcript;
+          if(e.results[i].isFinal){finalBuffer+=text.trim()+' ';}else{interim+=text;}
+        }
+        $('liveText').textContent=interim||'認識中…';
+        // Commit final speech as each finalized browser recognition segment arrives.
+        if(finalBuffer.trim()){const piece=finalBuffer.trim();finalBuffer='';addEntry(piece);}
+      };
+      recognition.onerror=e=>{
+        if(e.error==='no-speech')return;
+        if(e.error==='not-allowed'||e.error==='service-not-allowed'){recording=false;syncButtons();setStatus('マイクの許可が必要です');$('error').textContent='ブラウザのアドレスバー横のマイク設定で許可してください。';return;}
+        $('error').textContent='音声認識エラー: '+e.error;
+      };
+      recognition.onend=()=>{
+        if(recording){clearTimeout(restartTimer);restartTimer=setTimeout(()=>{try{recognition?.start();}catch(e){}},350);}
+        else{setStatus('停止中');syncButtons();}
+      };
+      recognition.start();
+    }catch(e){$('error').textContent='録音を開始できませんでした: '+e.message;recording=false;syncButtons();}
+  }
+  function syncButtons(){$('startBtn').disabled=recording;$('stopBtn').disabled=!recording;}
+  function stop(){recording=false;clearTimeout(restartTimer);try{recognition?.stop();}catch(e){}setStatus('停止中');syncButtons();$('liveText').textContent='録音を停止しました。';}
+  function download(name,text){
+    const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+  function exportText(){
+    const s=active();if(!s)return;
+    const content=[s.name,new Date(s.createdAt).toLocaleString(),'='.repeat(35),...s.entries.flatMap((e,i)=>['',`[${e.time?new Date(e.time).toLocaleString():i+1}]`,'English: '+e.en,'日本語: '+(e.ja||'（翻訳なし）')])].join('\n');
+    download((s.name||'classnote').replace(/[\\/:*?"<>|]/g,'_')+'.txt',content);
+  }
+  function makeSummary(){
+    const s=active();if(!s||!s.entries.length){$('summaryError').textContent='要約する記録がありません。';return;}
+    // Lightweight extractive summary: no paid AI or server required.
+    const lines=s.entries.map(e=>e.en.trim()).filter(Boolean);
+    const words={};
+    for(const line of lines){for(const w of line.toLowerCase().match(/[a-z][a-z'-]{3,}/g)||[]){if(!['this','that','with','from','they','have','were','will','would','there','their','about','which','when','what','your','into','than','then','them','some','more','also','because','very','been','being','were','said','just','like','such','each','does','dont','isnt','cant'].includes(w))words[w]=(words[w]||0)+1;}}
+    const top=Object.entries(words).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([w,n])=>`${w} (${n})`);
+    const first=lines.slice(0,Math.min(5,lines.length));
+    const result=`授業名：${s.name}\n記録数：${s.entries.length}件\n\n【主な話題（冒頭の発言）】\n${first.map((x,i)=>`${i+1}. ${x}`).join('\n')}\n\n【頻出する英単語】\n${top.length?top.join('、'):'十分な英語テキストがありません。'}\n\n【確認事項】\nこの要約はブラウザ内で作成した簡易整理です。内容の重要度や授業全体の結論をAIが判断したものではありません。`;
+    s.summary=result;saveAll();$('summary').textContent=result;$('summaryError').textContent='';
+  }
+  $('startBtn').onclick=start;$('stopBtn').onclick=stop;$('newBtn').onclick=newSession;
+  $('renameBtn').onclick=()=>{const s=active();const name=$('sessionName').value.trim();if(s&&name){s.name=name;saveAll();renderSessions();}};
+  $('downloadBtn').onclick=exportText;
+  $('summaryDownloadBtn').onclick=()=>{const s=active();if(!s?.summary){$('summaryError').textContent='先に要約を作成してください。';return;}download((s.name||'classnote')+'-summary.txt',s.summary);};
+  $('summaryBtn').onclick=makeSummary;
+  window.addEventListener('beforeunload',()=>{if(recording)stop();});
+  render();
+  if(!SpeechRecognition)setStatus('Chromeなど対応ブラウザが必要です');
+  else setStatus('準備完了');
+})();
+</script>
+</body>
+</html>
